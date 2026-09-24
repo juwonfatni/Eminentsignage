@@ -1,0 +1,30 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "N0gEOqCQidFylR0WA9BTq"
+uri = "file://eminent-site/preview.html"
+type = "html"
+title = "Eminent Signs & Craft Services preview"
+description = "Static, browser-viewable homepage preview matching the current site design."
+logical_id = "a4d5921d-c555-4eb9-ab21-5990d343af8e"
+content_hash = "sha256:b385ee784384f759a2176343473dd51e220945ff6a448ac3c734978c44af7bf0"
+size = 26137
+mtime_ms = 1790202478608
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/conversation:6b3dc195-3435-415e-8271-ba7a766a155f/a4d5921d-c555-4eb9-ab21-5990d343af8e/8ed9a028-7912-4a9e-a4de-f9c671069c1a"
+storage_version_token = "1790202479245890"
+content_type = "text/html"
+
+[[outputs]]
+id = "Wg7j0VZ26ducAOWprxCyn"
+uri = "file://eminent-site/prototype-preview.html"
+type = "html"
+title = "Eminent Signs & Craft Services — recreated prototype"
+description = "Browser-viewable reference preview with Home, Services, Gallery, About, and Contact screens."
+logical_id = "80d12790-efde-4a56-b7c7-e92a7cdaa759"
+content_hash = "sha256:96e23f188a33aa4ae138e4e1cf8749d1ef8e07a2214d602a19e0f6de38f9d55d"
+size = 25924
+mtime_ms = 1790204863931
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/conversation:6b3dc195-3435-415e-8271-ba7a766a155f/80d12790-efde-4a56-b7c7-e92a7cdaa759/26e2109e-737c-40bd-bab4-674838e58168"
+storage_version_token = "1790204864474415"
+content_type = "text/html"

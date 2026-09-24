@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Eminent Signs & Craft Services"
+description = "A responsive website for a Lagos signage and branding company, with service details, a portfolio, company information, and a quote-request contact page."
+version = "1.0.0"
+id = "artifacts/eminent-signs"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25183
+
+[services.development]
+run = "pnpm --filter @workspace/eminent-signs run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/eminent-signs", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/eminent-signs/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25183"
+BASE_PATH = "/"

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#F4F7FB"/>
+  <rect x="0" y="0" width="400" height="300" fill="none" stroke="#0171CE" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="200" y="140" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#054C8A">Project photo</text>
+  <text x="200" y="164" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#37343580">pending from client</text>
+</svg>
