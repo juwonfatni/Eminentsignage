@@ -34,14 +34,8 @@ const projects = [
 
 function Logo({ footer = false }: { footer?: boolean }) {
   return (
-    <span className="brand" data-testid={footer ? 'brand-footer' : 'brand-header'}>
-      <svg className="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M50 20 L14 40 L36 44 L20 58 L40 56 L30 72 L50 58 L70 72 L60 56 L80 58 L64 44 L86 40 Z" fill="#0171CE" opacity="0.95" />
-        <path d="M50 20 L38 42 L50 58 L62 42 Z" fill="#FCB61A" />
-        <rect x="47" y="30" width="6" height="34" rx="1.5" fill="#F4F7FB" />
-        <path d="M50 64 L44 78 L56 78 Z" fill="#F4F7FB" />
-      </svg>
-      <span className="brand-name">EMINENT<span className="brand-sub">SIGNS &amp; CRAFT SERVICES</span></span>
+    <span className={`brand ${footer ? 'brand-footer' : ''}`} data-testid={footer ? 'brand-footer' : 'brand-header'}>
+      <img className="brand-logo" src={`${import.meta.env.BASE_URL}eminent-logo.jpg`} alt="Eminent Signs & Craft Services" />
     </span>
   );
 }
