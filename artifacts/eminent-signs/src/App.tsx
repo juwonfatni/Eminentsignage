@@ -170,7 +170,7 @@ function Home() {
     </section>
     <section className="stats" aria-label="Company highlights">
       <div className="wrap stats-grid">
-        {[['4+', 'Years of Experience'], ['5+', 'Projects Completed'], ['8', 'Core Services'], ['100%', 'On-Site Installation']].map(([value, label]) => <div key={label} data-testid={`stat-${label.toLowerCase().replaceAll(' ', '-')}`}><div className="stat-value">{value}</div><div className="stat-label">{label}</div></div>)}
+        {[['4+', 'Years of Experience'], ['20+', 'Projects Completed'], ['10+', 'Core Services'], ['100%', 'On-Site Installation']].map(([value, label]) => <div key={label} data-testid={`stat-${label.toLowerCase().replaceAll(' ', '-')}`}><div className="stat-value">{value}</div><div className="stat-label">{label}</div></div>)}
       </div>
     </section>
     <section className="section wrap" aria-labelledby="what-we-build">
