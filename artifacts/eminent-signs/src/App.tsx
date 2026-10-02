@@ -32,6 +32,68 @@ const projects = [
   { name: 'Goldenpenny Café', description: 'Signage and branding project completed for Goldenpenny Café.', a: '#7b4e25', b: '#fcb61a' },
 ];
 
+const galleryCategories = [
+  { id: 'all', label: 'All Photos' },
+  { id: 'neon-sign', label: 'Neon Sign' },
+  { id: 'facial-acp', label: 'Facial Signage with ACP Cladding' },
+  { id: '3d-indoor', label: '3D Cut Out Indoor Signage' },
+  { id: 'round-acrylic', label: 'Round Acrylic Signage with Backlit' },
+  { id: 'event-props', label: 'Events Props Cut Out and Event Signage' },
+] as const;
+type GalleryCategoryId = typeof galleryCategories[number]['id'];
+
+const galleryPhotos = [
+  {
+    image: 'gallery/indoor-sign-01.webp',
+    title: "TEM'S STYLES",
+    description: 'Custom cut-out lettering prepared for an interior display.',
+    alt: "TEM'S STYLES cut-out letters arranged on a backing panel in the workshop.",
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-02.webp',
+    title: 'Rhouth Haven',
+    description: 'Interior branding and illuminated signage for a beauty salon.',
+    alt: 'Rhouth Haven beauty salon reception with wall logos and a lit neon wall sign.',
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-03.webp',
+    title: 'Aso Stitches',
+    description: 'A custom wall logo for a fashion and tailoring brand.',
+    alt: 'Aso Stitches wall logo with a thread and button design.',
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-04.webp',
+    title: 'T.K.I. Thrifts and Fashion World',
+    description: 'Raised lettering installed on an interior wall.',
+    alt: 'Black raised T.K.I. Thrifts and Fashion World lettering on a light interior wall.',
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-05.webp',
+    title: 'NBK Nails by K3JI',
+    description: 'Warm backlit lettering in a nail studio.',
+    alt: 'Warm illuminated NBK Nails by K3JI sign on a salon wall.',
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-06.webp',
+    title: 'NBK Nails by K3JI',
+    description: 'The installed sign shown without its lighting.',
+    alt: 'Unlit black NBK Nails by K3JI wall lettering in the salon.',
+    category: '3d-indoor',
+  },
+  {
+    image: 'gallery/indoor-sign-07.webp',
+    title: 'MALIKA Skin Clinic',
+    description: 'Raised clinic lettering and butterfly detail on a feature wall.',
+    alt: 'Black raised MALIKA Skin Clinic letters and butterfly mounted on a white wall.',
+    category: '3d-indoor',
+  },
+] as const;
+
 function Logo({ footer = false }: { footer?: boolean }) {
   return (
     <span className={`brand ${footer ? 'brand-footer' : ''}`} data-testid={footer ? 'brand-footer' : 'brand-header'}>
@@ -150,6 +212,20 @@ function ProjectCard({ project, index }: { project: typeof projects[number]; ind
   return <article className="project-card" data-testid={`card-project-${index}`}><div className="project-thumb" style={style}><span className="thumb-label">{project.name}</span><span className="photo-pending">Project photo pending</span></div><div className="project-body"><h3>{project.name}</h3><p>{project.description}</p></div></article>;
 }
 
+function GalleryPhotoCard({ photo, index }: { photo: typeof galleryPhotos[number]; index: number }) {
+  return (
+    <article className="project-card gallery-photo-card" data-testid={`card-gallery-photo-${index}`}>
+      <a className="gallery-photo-frame" href={`${import.meta.env.BASE_URL}${photo.image}`} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size photo: ${photo.title}`}>
+        <img src={`${import.meta.env.BASE_URL}${photo.image}`} alt={photo.alt} loading="lazy" decoding="async" />
+      </a>
+      <div className="project-body">
+        <h3>{photo.title}</h3>
+        <p>{photo.description}</p>
+      </div>
+    </article>
+  );
+}
+
 function Home() {
   return <>
     <PageMeta title="Signage & Branding in Lagos" description="Eminent Signs & Craft Services creates premium signage, branding, fabrication and installation solutions for businesses across Lagos." />
@@ -193,10 +269,53 @@ function Services() {
 }
 
 function Gallery() {
+  const [activeCategory, setActiveCategory] = useState<GalleryCategoryId>('all');
+  const activeLabel = galleryCategories.find(({ id }) => id === activeCategory)?.label ?? 'All Photos';
+  const visiblePhotos = activeCategory === 'all'
+    ? galleryPhotos
+    : galleryPhotos.filter((photo) => photo.category === activeCategory);
+
   return <>
-    <PageMeta title="Gallery & Portfolio" description="View completed signage and branding projects by Eminent Signs & Craft Services across Lagos, including FLM, Sonmade Luxury, Savalani and more." />
-    <SubHero eyebrow="Our work" title="Gallery & Portfolio">A look at completed signage and branding projects across Lagos.</SubHero>
-    <section className="section wrap" aria-labelledby="portfolio-grid"><h2 id="portfolio-grid" className="sr-only">Completed projects</h2><div className="project-grid">{projects.map((project, index) => <ProjectCard key={project.name} project={project} index={index} />)}</div><p className="portfolio-note">More projects added as new work is completed.</p></section>
+    <PageMeta title="Gallery & Portfolio" description="Browse Eminent Signs & Craft Services projects by signage category, including 3D cut-out indoor signs and branding across Lagos." />
+    <SubHero eyebrow="Our work" title="Gallery & Portfolio">Browse completed signage and branding projects by category across Lagos.</SubHero>
+    <section className="section wrap" aria-labelledby="portfolio-grid">
+      <h2 id="portfolio-grid" className="sr-only">Completed projects</h2>
+      <div className="gallery-categories" role="group" aria-label="Filter gallery photos by category">
+        {galleryCategories.map(({ id, label }) => {
+          const count = id === 'all' ? galleryPhotos.length : galleryPhotos.filter((photo) => photo.category === id).length;
+          return (
+            <button
+              key={id}
+              className="gallery-category-button"
+              type="button"
+              aria-pressed={activeCategory === id}
+              onClick={() => setActiveCategory(id)}
+              data-testid={`button-gallery-category-${id}`}
+            >
+              {label}<span className="gallery-category-count">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+      {visiblePhotos.length > 0 ? (
+        <div className="project-grid">{visiblePhotos.map((photo, index) => <GalleryPhotoCard key={photo.image} photo={photo} index={index} />)}</div>
+      ) : (
+        <div className="gallery-empty" role="status" data-testid={`gallery-empty-${activeCategory}`}>
+          <div className="eyebrow">{activeLabel}</div>
+          <h2>Photos coming soon</h2>
+          <p>Send us photos with this category name and we&apos;ll add them here.</p>
+        </div>
+      )}
+      {activeCategory === 'all' && (
+        <section className="earlier-projects" aria-labelledby="earlier-projects-heading">
+          <div className="eyebrow">Earlier portfolio entries</div>
+          <h2 id="earlier-projects-heading">More completed projects</h2>
+          <p className="portfolio-note">Photos for these earlier projects can be added to their categories as they become available.</p>
+          <div className="project-grid">{projects.map((project, index) => <ProjectCard key={project.name} project={project} index={index} />)}</div>
+        </section>
+      )}
+      <p className="portfolio-note">More projects added as new work is completed.</p>
+    </section>
   </>;
 }
 
